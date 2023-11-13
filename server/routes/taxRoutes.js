@@ -16,10 +16,10 @@ router.post('/store', verifyToken, async (req, res) => {
     const netTaxPayable = deductions > totalIncome ? 0 : await calculateIncomeTax({taxApplicableIncome})
     const isTaxPaid = await TaxAuditRecord.find({userId, financialYear });
     //if tax is already paid no need to create again 
-    if(isTaxPaid){
-        res.status(200).json({ paid : true})
-        return;
-    }
+    // if(isTaxPaid){
+    //     res.status(200).json({ paid : true})
+    //     return;
+    // }
     const taxDetails = new TaxDetails({
       userId,
       financialYear,
