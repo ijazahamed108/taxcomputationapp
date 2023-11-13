@@ -50,7 +50,7 @@ const AdminDashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/users', {
+      const response = await axios.get('https://taxappserver.vercel.app/api/admin/users', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setUsers(response.data);
@@ -61,7 +61,7 @@ const AdminDashboard = () => {
 
   const fetchTaxAuditRecords = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/get-audit-records', {
+      const response = await axios.get('https://taxappserver.vercel.app/api/admin/get-audit-records', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setTaxAuditRecords(response.data);
@@ -73,7 +73,7 @@ const AdminDashboard = () => {
   const handleUpdateAuditRecord = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/api/admin/update-tax-audit-record/${selectedAuditRecordId}`,
+        `https://taxappserver.vercel.app/api/admin/update-tax-audit-record/${selectedAuditRecordId}`,
         selectedAuditRecord,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -114,7 +114,7 @@ const AdminDashboard = () => {
   }
   const handleUpdateUser = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/admin/update-user/${selectedUserId}`, selectedUser, {
+      await axios.put(`https://taxappserver.vercel.app/api/admin/update-user/${selectedUserId}`, selectedUser, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       fetchUsers(); 

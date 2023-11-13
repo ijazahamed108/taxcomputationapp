@@ -30,7 +30,7 @@ const Signup = () => {
 
     try {
       // Check if userId and email are unique
-      const checkUnique = await axios.post('http://localhost:5000/api/auth/check-unique', {
+      const checkUnique = await axios.post('https://taxappserver.vercel.app/api/auth/check-unique', {
         userId: formData.userId,
         email: formData.email,
       });
@@ -48,7 +48,7 @@ const Signup = () => {
 
 
       // Signup user
-      const response = await axios.post('http://localhost:5000/api/auth/signup', {
+      const response = await axios.post('https://taxappserver.vercel.app/api/auth/signup', {
         ...formData
       });
       // Store the token in local storage

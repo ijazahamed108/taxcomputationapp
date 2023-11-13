@@ -50,7 +50,7 @@ const Dashboard = () => {
             setUpiId(false)
             return
         }
-      const response = await axios.post('http://localhost:5000/api/computetax/paytaxes', {
+      const response = await axios.post('https://taxappserver.vercel.app/api/computetax/paytaxes', {
         userId: userData.userId,
         upiId,
         amount: latestSubmission.netTaxPayable,
@@ -73,7 +73,7 @@ const Dashboard = () => {
   const fetchUserData = async () => {
     try {
       // Fetch user data from the server based on user ID
-      const response = await axios.get('http://localhost:5000/api/auth/user-info', {
+      const response = await axios.get('https://taxappserver.vercel.app/api/auth/user-info', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
 
@@ -88,7 +88,7 @@ const Dashboard = () => {
   const fetchSubmissionHistory = async () => {
     try {
       // Fetch submission history from the server based on user ID
-      const response = await axios.get('http://localhost:5000/api/computetax/get', {
+      const response = await axios.get('https://taxappserver.vercel.app/api/computetax/get', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         params: { userId: userData.userId }, // Include user ID in the request params
       });
@@ -110,7 +110,7 @@ const Dashboard = () => {
 
   const handleComputeTax = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/computetax/store', taxFormData, {
+      const response = await axios.post('https://taxappserver.vercel.app/api/computetax/store', taxFormData, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         params: { userId: userData.userId },
       });
