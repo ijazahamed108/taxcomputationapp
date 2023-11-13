@@ -70,6 +70,9 @@ This MERN (MongoDB, Express.js, React, Node.js) stack application facilitates ta
 1. Navigate to the server directory: `cd server`
 2. Build the Docker image: `docker build -t express-app .`
 
+#### Configure envs
+`docker run -d -e MONGODB_URI =my_value -e JWT_SECRET =another_value <image-name>`
+
 #### Run Docker Containers
 
 1. Client: `docker run -d -p 3000:3000 react-app`
