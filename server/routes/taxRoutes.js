@@ -9,17 +9,17 @@ const TaxAuditRecord = require('../models/TaxAuditRecord')
 // Route to store tax details (protected)
 router.post('/store', verifyToken, async (req, res) => {
   try {
-    const {  financialYear, totalIncome, panNumber, hra, healthInsurance } = req.body;
+    const { financialYear, totalIncome, panNumber, hra, healthInsurance } = req.body;
     const { userId } = req.query;
-    const deductions = ( parseInt(hra) + parseInt(healthInsurance) );
+    const deductions = (parseInt(hra) + parseInt(healthInsurance));
     const taxApplicableIncome = (parseInt(totalIncome) - deductions);
-    const netTaxPayable = deductions > totalIncome ? 0 : await calculateIncomeTax({taxApplicableIncome})
-    const isTaxPaid = await TaxAuditRecord.find({userId, financialYear });
+    const netTaxPayable = deductions > totalIncome ? 0 : await calculateIncomeTax({ taxApplicableIncome })
+    const isTaxPaid = await TaxAuditRecord.find({ userId, financialYear });
     //if tax is already paid no need to create again 
-    // if(isTaxPaid){
-    //     res.status(200).json({ paid : true})
-    //     return;
-    // }
+    if (isTaxPaid.length > 0) {
+      res.status(200).json({ paid: true })
+      return;
+    }
     const taxDetails = new TaxDetails({
       userId,
       financialYear,
@@ -27,14 +27,14 @@ router.post('/store', verifyToken, async (req, res) => {
       panNumber,
       hra,
       healthInsurance,
-      netTaxPayable:parseFloat(netTaxPayable.toFixed(2))
+      netTaxPayable: parseFloat(netTaxPayable.toFixed(2))
     });
 
     const savedTaxDetails = await taxDetails.save();
     res.json({
-        savedTaxDetails,
-        totalTaxLiable,
-      });
+      savedTaxDetails,
+      netTaxPayable,
+    });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
