@@ -9,7 +9,7 @@ const AuditRecordHistory = require('../models/AuditRecordHistory')
 // Fetch all users
 router.get('/users',verifyToken, async (req, res) => {
   try {
-    const users = await User.find({}); 
+    const users = await User.find({}, { userId: 1, name: 1, email: 1, role: 1 });
     res.json(users);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
