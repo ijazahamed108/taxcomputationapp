@@ -85,7 +85,7 @@ router.post('/login', async (req, res) => {
 // Signup route
 router.post('/signup', async (req, res) => {
   try {
-    const { name, userId, email, password } = req.body;
+    const { name, userId, email, password, country, state } = req.body;
 
     // Check if userId and email are unique again (double-check)
     const existingUserId = await User.findOne({ userId });
